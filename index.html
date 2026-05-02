@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEAD COMPANY - Building Trust. Building Future.</title>
+<style>
+  @import url('https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.19/index.css');
+  :root {
+    --primary: #1a56db; --primary-dark: #1040a0; --primary-light: #e8effc;
+    --text: #1e293b; --text-light: #64748b; --bg: #ffffff; --bg-alt: #f8fafc;
+    --border: #e2e8f0; --success: #10b981; --shadow: 0 4px 24px rgba(0,0,0,0.08);
+    --shadow-lg: 0 12px 40px rgba(0,0,0,0.12); --radius: 12px;
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--bg); line-height: 1.6; overflow-x: hidden; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); transition: var(--transition); }
+  nav.scrolled { box-shadow: 0 2px 20px rgba(0,0,0,0.08); }
+  .nav-inner { max-width: 1280px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0 24px; height: 72px; }
+  .logo { display: flex; align-items: center; gap: 10px; font-size: 1.4rem; font-weight: 800; color: var(--primary); text-decoration: none; cursor: pointer; }
+  .logo-icon { width: 40px; height: 40px; background: var(--primary); border-radius: 10px; display: flex; align-items: center; justify-content: center; color: white; font-weight: 900; font-size: 1.1rem; }
+  .nav-links { display: flex; align-items: center; gap: 4px; list-style: none; flex-wrap: wrap; }
+  .nav-links a { padding: 8px 16px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: var(--transition); cursor: pointer; white-space: nowrap; }
+  .nav-links a:hover, .nav-links a.active { background: var(--primary-light); color: var(--primary); }
+  .nav-right { display: flex; align-items: center; gap: 12px; }
+  .lang-toggle { display: flex; align-items: center; background: var(--bg-alt); border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .lang-btn { padding: 6px 14px; border: none; background: transparent; cursor: pointer; font-size: 0.85rem; font-weight: 600; transition: var(--transition); color: var(--text-light); font-family: inherit; }
+  .lang-btn.active { background: var(--primary); color: white; }
+  .hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 8px; background: none; border: none; }
+  .hamburger span { width: 24px; height: 2px; background: var(--text); transition: var(--transition); border-radius: 2px; }
+  .mobile-menu { display: none; position: fixed; top: 72px; left: 0; right: 0; background: white; border-bottom: 1px solid var(--border); padding: 16px; box-shadow: var(--shadow-lg); animation: slideDown 0.3s ease; max-height: calc(100vh - 72px); overflow-y: auto; }
+  .mobile-menu.open { display: block; }
+  .mobile-menu a { display: block; padding: 12px 16px; color: var(--text); text-decoration: none; font-weight: 500; border-radius: 8px; transition: var(--transition); }
+  .mobile-menu a:hover { background: var(--primary-light); color: var(--primary); }
+  @keyframes slideDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  .page { display: none; opacity: 0; transition: opacity 0.4s ease; }
+  .page.active { display: block; opacity: 1; }
+  .hero { min-height: 100vh; display: flex; align-items: center; background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #1a56db 100%); position: relative; overflow: hidden; padding: 72px 24px 0; }
+  .hero::before { content: ''; position: absolute; inset: 0; background-image: url("image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Cdefs%3E%3Cpattern id='g' width='20' height='20' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='10' cy='10' r='1' fill='rgba(255,255,255,0.05)'/%3E%3C/pattern%3E%3C/defs%3E%3Crect fill='url(%23g)' width='100' height='100'/%3E%3C/svg%3E"); background-size: 60px 60px; }
+  .hero-content { max-width: 1280px; margin: 0 auto; width: 100%; position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+  .hero-text h1 { font-size: 3.5rem; font-weight: 800; color: white; line-height: 1.15; margin-bottom: 20px; }
+  .hero-text h1 span { color: #60a5fa; }
+  .hero-text p { font-size: 1.15rem; color: rgba(255,255,255,0.75); margin-bottom: 36px; max-width: 500px; line-height: 1.7; }
+  .hero-btns { display: flex; gap: 16px; flex-wrap: wrap; }
+  .btn { display: inline-flex; align-items: center; gap: 8px; padding: 14px 32px; border-radius: 10px; font-weight: 600; font-size: 0.95rem; text-decoration: none; border: none; cursor: pointer; transition: var(--transition); font-family: inherit; }
+  .btn-primary { background: white; color: var(--primary); box-shadow: 0 4px 16px rgba(0,0,0,0.15); }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .btn-outline { background: transparent; color: white; border: 2px solid rgba(255,255,255,0.3); }
+  .btn-outline:hover { border-color: white; background: rgba(255,255,255,0.1); }
+  .btn-blue { background: var(--primary); color: white; box-shadow: 0 4px 16px rgba(26,86,219,0.3); }
+  .btn-blue:hover { background: var(--primary-dark); transform: translateY(-2px); }
+  .btn-green { background: var(--success); color: white; box-shadow: 0 4px 16px rgba(16,185,129,0.3); }
+  .btn-green:hover { background: #059669; transform: translateY(-2px); }
+  .hero-visual { display: flex; justify-content: center; align-items: center; position: relative; }
+  .hero-img-wrapper { width: 100%; max-width: 500px; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.3); position: relative; }
+  .hero-img-wrapper img { width: 100%; height: 380px; object-fit: cover; display: block; }
+  .hero-badge { position: absolute; bottom: -20px; left: -20px; background: white; padding: 16px 24px; border-radius: 14px; box-shadow: var(--shadow-lg); display: flex; align-items: center; gap: 12px; }
+  .hero-badge-icon { width: 44px; height: 44px; background: var(--primary-light); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; }
+  .hero-badge-text { font-size: 0.85rem; }
+  .hero-badge-text strong { display: block; font-size: 1.1rem; color: var(--primary); }
+  .section { padding: 100px 24px; max-width: 1280px; margin: 0 auto; }
+  .section-header { text-align: center; margin-bottom: 60px; }
+  .section-label { display: inline-block; padding: 6px 16px; background: var(--primary-light); color: var(--primary); border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 16px; }
+  .section-title { font-size: 2.5rem; font-weight: 800; margin-bottom: 16px; line-height: 1.2; }
+  .section-subtitle { font-size: 1.1rem; color: var(--text-light); max-width: 600px; margin: 0 auto; line-height: 1.7; }
+  .bg-alt { background: var(--bg-alt); }
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; }
+  .card { background: white; border-radius: var(--radius); overflow: hidden; box-shadow: var(--shadow); transition: var(--transition); border: 1px solid var(--border); }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); }
+  .card-img { width: 100%; height: 220px; object-fit: cover; }
+  .card-body { padding: 28px; }
+  .card-body h3 { font-size: 1.3rem; margin-bottom: 12px; font-weight: 700; }
+  .card-body p { color: var(--text-light); font-size: 0.95rem; line-height: 1.7; }
+  .service-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
+  .service-card { background: white; border-radius: var(--radius); padding: 36px 28px; border: 1px solid var(--border); transition: var(--transition); text-align: center; }
+  .service-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-4px); }
+  .service-icon { width: 64px; height: 64px; background: var(--primary-light); border-radius: 16px; display: flex; align-items: center; justify-content: center; font-size: 1.8rem; margin: 0 auto 20px; }
+  .service-card h3 { font-size: 1.15rem; margin-bottom: 10px; font-weight: 700; }
+  .service-card p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; }
+
+  /* COMING SOON EMPLOYEES */
+  .coming-soon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 36px; }
+  .coming-soon-card { background: white; border-radius: 20px; padding: 36px 20px 28px; border: 2px dashed var(--border); text-align: center; transition: var(--transition); position: relative; cursor: pointer; }
+  .coming-soon-card:hover { border-color: var(--primary); box-shadow: var(--shadow-lg); transform: translateY(-6px); }
+  .coming-soon-badge { position: absolute; top: -12px; right: -8px; background: linear-gradient(135deg, #f59e0b, #ef4444); color: white; padding: 5px 14px; border-radius: 20px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; box-shadow: 0 4px 12px rgba(245,158,11,0.3); }
+  .coming-soon-photo-wrapper { width: 130px; height: 130px; margin: 0 auto 18px; border-radius: 50%; overflow: hidden; border: 4px solid var(--primary); box-shadow: 0 4px 20px rgba(26,86,219,0.2); position: relative; transition: var(--transition); }
+  .coming-soon-card:hover .coming-soon-photo-wrapper { border-color: var(--primary-dark); box-shadow: 0 6px 28px rgba(26,86,219,0.3); transform: scale(1.05); }
+  .coming-soon-photo-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+  .coming-soon-photo-placeholder { width: 100%; height: 100%; background: linear-gradient(135deg, var(--primary-light), #dbeafe); display: flex; align-items: center; justify-content: center; font-size: 2.5rem; }
+  .coming-soon-name { font-weight: 800; font-size: 1.1rem; margin-bottom: 6px; color: var(--primary); }
+  .coming-soon-role { color: var(--text-light); font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; }
+  .coming-soon-country { display: inline-block; padding: 4px 14px; background: var(--bg-alt); border-radius: 14px; font-size: 0.8rem; color: var(--text-light); margin-bottom: 10px; }
+  .coming-soon-hint { font-size: 0.75rem; color: var(--primary); font-weight: 600; opacity: 0.7; }
+  .coming-soon-hint::before { content: '👆 '; }
+
+  .emp-category { margin-bottom: 48px; }
+  .emp-category h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 2px solid var(--primary-light); color: var(--primary); }
+  .emp-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; }
+  .emp-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); text-align: center; transition: var(--transition); }
+  .emp-card:hover { border-color: var(--primary); box-shadow: var(--shadow); transform: translateY(-4px); }
+  .emp-photo { width: 100%; height: 240px; object-fit: cover; display: block; background: linear-gradient(135deg, var(--primary-light), #dbeafe); }
+  .emp-body { padding: 16px; }
+  .emp-flag { font-size: 1.5rem; margin-bottom: 6px; }
+  .emp-name { font-weight: 700; font-size: 0.95rem; margin-bottom: 4px; }
+  .emp-role { color: var(--text-light); font-size: 0.8rem; line-height: 1.4; }
+  .emp-country { display: inline-block; margin-top: 8px; padding: 3px 10px; background: var(--primary-light); color: var(--primary); border-radius: 12px; font-size: 0.75rem; font-weight: 600; }
+
+  .gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+  .gallery-item { border-radius: var(--radius); overflow: hidden; position: relative; aspect-ratio: 4/3; box-shadow: var(--shadow); cursor: pointer; }
+  .gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+  .gallery-item:hover img { transform: scale(1.05); }
+  .gallery-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); display: flex; align-items: flex-end; padding: 20px; opacity: 0; transition: var(--transition); }
+  .gallery-item:hover .gallery-overlay { opacity: 1; }
+  .gallery-overlay span { color: white; font-weight: 600; font-size: 0.95rem; }
+  .news-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 28px; }
+  .news-card { background: white; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--border); transition: var(--transition); }
+  .news-card:hover { box-shadow: var(--shadow-lg); transform: translateY(-4px); }
+  .news-img { width: 100%; height: 200px; object-fit: cover; }
+  .news-body { padding: 24px; }
+  .news-date { display: inline-block; padding: 4px 12px; background: var(--primary-light); color: var(--primary); border-radius: 12px; font-size: 0.8rem; font-weight: 600; margin-bottom: 12px; }
+  .news-body h3 { font-size: 1.15rem; margin-bottom: 10px; font-weight: 700; line-height: 1.4; }
+  .news-body p { color: var(--text-light); font-size: 0.9rem; line-height: 1.6; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 700px; }
+  .form-grid .full { grid-column: 1 / -1; }
+  .form-group { display: flex; flex-direction: column; }
+  .form-group label { font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: var(--text); }
+  .form-group input, .form-group select, .form-group textarea { padding: 12px 16px; border: 1px solid var(--border); border-radius: 8px; font-size: 0.95rem; font-family: inherit; transition: var(--transition); background: var(--bg-alt); }
+  .form-group input:focus, .form-group select:focus, .form-group textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(26,86,219,0.1); }
+  .form-group textarea { resize: vertical; min-height: 120px; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 48px; align-items: start; }
+  .contact-info-card { display: flex; align-items: flex-start; gap: 16px; padding: 20px; background: var(--bg-alt); border-radius: var(--radius); margin-bottom: 16px; }
+  .contact-icon { width: 48px; height: 48px; background: var(--primary-light); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0; }
+  .contact-info-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 4px; }
+  .contact-info-card p { color: var(--text-light); font-size: 0.9rem; }
+  .contact-info-card a { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .values-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 24px; margin-top: 40px; }
+  .value-card { text-align: center; padding: 32px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border); transition: var(--transition); }
+  .value-card:hover { border-color: var(--primary); box-shadow: var(--shadow); }
+  .value-icon { font-size: 2.5rem; margin-bottom: 16px; }
+  .value-card h4 { font-weight: 700; margin-bottom: 8px; }
+  .value-card p { color: var(--text-light); font-size: 0.85rem; }
+  footer { background: #0f172a; color: rgba(255,255,255,0.7); padding: 60px 24px 30px; }
+  .footer-inner { max-width: 1280px; margin: 0 auto; display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 40px; }
+  .footer-brand h3 { color: white; font-size: 1.3rem; margin-bottom: 12px; }
+  .footer-brand p { font-size: 0.9rem; line-height: 1.7; }
+  .footer-col h4 { color: white; font-size: 0.95rem; margin-bottom: 16px; font-weight: 700; }
+  .footer-col a { display: block; color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.9rem; padding: 4px 0; transition: var(--transition); cursor: pointer; }
+  .footer-col a:hover { color: white; }
+  .footer-bottom { max-width: 1280px; margin: 40px auto 0; padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.1); text-align: center; font-size: 0.85rem; }
+  .stats-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-top: 60px; }
+  .stat-card { text-align: center; padding: 32px 20px; background: white; border-radius: var(--radius); border: 1px solid var(--border); }
+  .stat-num { font-size: 2.5rem; font-weight: 800; color: var(--primary); }
+  .stat-label { color: var(--text-light); font-size: 0.9rem; margin-top: 4px; }
+  .scroll-top { position: fixed; bottom: 24px; right: 24px; width: 48px; height: 48px; background: var(--primary); color: white; border: none; border-radius: 50%; cursor: pointer; font-size: 1.2rem; box-shadow: var(--shadow-lg); transition: var(--transition); opacity: 0; pointer-events: none; z-index: 999; }
+  .scroll-top.visible { opacity: 1; pointer-events: all; }
+  .scroll-top:hover { transform: translateY(-2px); background: var(--primary-dark); }
+  .page-header { background: linear-gradient(135deg, #0f172a, #1e3a8a); padding: 140px 24px 80px; text-align: center; color: white; }
+  .page-header h1 { font-size: 2.8rem; font-weight: 800; margin-bottom: 12px; }
+  .page-header p { font-size: 1.1rem; color: rgba(255,255,255,0.7); max-width: 550px; margin: 0 auto; }
+  .about-hero { background: linear-gradient(135deg, #0f172a, #1e3a8a); padding: 140px 24px 80px; text-align: center; color: white; }
+  .about-hero h1 { font-size: 3rem; font-weight: 800; margin-bottom: 16px; }
+  .about-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.7); max-width: 600px; margin: 0 auto; }
+  .about-content { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 80px 24px; }
+  .about-content img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
+  .about-text h2 { font-size: 2rem; font-weight: 800; margin-bottom: 20px; }
+  .about-text p { color: var(--text-light); line-height: 1.8; margin-bottom: 16px; }
+  .lightbox { display: none; position: fixed; inset: 0; z-index: 2000; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; padding: 40px; }
+  .lightbox.open { display: flex; }
+  .lightbox img { max-width: 90%; max-height: 85vh; border-radius: 8px; }
+  .lightbox-close { position: absolute; top: 20px; right: 24px; background: none; border: none; color: white; font-size: 2rem; cursor: pointer; }
+  .lightbox-label { position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%); color: white; font-weight: 600; font-size: 1rem; background: rgba(0,0,0,0.5); padding: 8px 20px; border-radius: 8px; }
+  @media (max-width: 1024px) {
+    .hero-content { grid-template-columns: 1fr; text-align: center; }
+    .hero-text p { margin: 0 auto 36px; }
+    .hero-btns { justify-content: center; }
+    .hero-visual { margin-top: 40px; }
+    .hero-badge { left: 50%; transform: translateX(-50%); }
+    .footer-inner { grid-template-columns: 1fr 1fr; }
+    .contact-grid { grid-template-columns: 1fr; }
+    .about-content { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: repeat(2, 1fr); }
+  }
+  @media (max-width: 768px) {
+    .nav-links { display: none; }
+    .hamburger { display: flex; }
+    .hero-text h1 { font-size: 2.2rem; }
+    .section-title { font-size: 1.8rem; }
+    .card-grid, .news-grid { grid-template-columns: 1fr; }
+    .form-grid { grid-template-columns: 1fr; }
+    .form-grid .full { grid-column: 1; }
+    .emp-grid, .coming-soon-grid { grid-template-columns: repeat(2, 1fr); }
+    .gallery-grid { grid-template-columns: 1fr; }
+    .footer-inner { grid-template-columns: 1fr; }
+    .page-header h1 { font-size: 2rem; }
+    .about-hero h1 { font-size: 2.2rem; }
+    .stats-row { grid-template-columns: 1fr 1fr; }
+    .hero-badge { display: none; }
+  }
+  @media (max-width: 480px) {
+    .emp-grid, .coming-soon-grid { grid-template-columns: 1fr; }
+    .stats-row { grid-template-columns: 1fr; }
+    .hero-btns { flex-direction: column; align-items: center; }
+  }
+  .fade-in { opacity: 0; transform: translateY(30px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+  .pulse { animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.6; } }
+</style>
+</head>
+<body>
+<nav id="navbar">
+  <div class="nav-inner">
+    <a class="logo" onclick="navigate('home')"><div class="logo-icon">LC</div><span>LEAD COMPANY</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="navigate('home')" data-page="home" class="active" data-en="Home" data-fr="Accueil">Home</a></li>
+      <li><a onclick="navigate('about')" data-page="about" data-en="About" data-fr="À propos">About</a></li>
+      <li><a onclick="navigate('construction')" data-page="construction" data-en="Construction" data-fr="Construction">Construction</a></li>
+      <li><a onclick="navigate('supermarket')" data-page="supermarket" data-en="Supermarket" data-fr="Supermarché">Supermarket</a></li>
+      <li><a onclick="navigate('careers')" data-page="careers" data-en="Careers" data-fr="Carrières">Careers</a></li>
+      <li><a onclick="navigate('employees')" data-page="employees" data-en="Team" data-fr="Équipe">Team</a></li>
+      <li><a onclick="navigate('coming-soon')" data-page="coming-soon" data-en="Coming Soon" data-fr="Prochainement">Coming Soon</a></li>
+      <li><a onclick="navigate('gallery')" data-page="gallery" data-en="Gallery" data-fr="Galerie">Gallery</a></li>
+      <li><a onclick="navigate('news')" data-page="news" data-en="News" data-fr="Nouvelles">News</a></li>
+      <li><a onclick="navigate('contact')" data-page="contact" data-en="Contact" data-fr="Contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle">
+        <button class="lang-btn active" onclick="setLang('en')" id="langEn">🇬 EN</button>
+        <button class="lang-btn" onclick="setLang('fr')" id="langFr">🇫🇷 FR</button>
+      </div>
+      <button class="hamburger" onclick="toggleMobile()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a onclick="navigate('home')" data-en="Home" data-fr="Accueil">Home</a>
+    <a onclick="navigate('about')" data-en="About" data-fr="À propos">About</a>
+    <a onclick="navigate('construction')" data-en="Construction" data-fr="Construction">Construction</a>
+    <a onclick="navigate('supermarket')" data-en="Supermarket" data-fr="Supermarché">Supermarket</a>
+    <a onclick="navigate('careers')" data-en="Careers" data-fr="Carrières">Careers</a>
+    <a onclick="navigate('employees')" data-en="Team" data-fr="Équipe">Team</a>
+    <a onclick="navigate('coming-soon')" data-en="Coming Soon" data-fr="Prochainement">Coming Soon</a>
+    <a onclick="navigate('gallery')" data-en="Gallery" data-fr="Galerie">Gallery</a>
+    <a onclick="navigate('news')" data-en="News" data-fr="Nouvelles">News</a>
+    <a onclick="navigate('contact')" data-en="Contact" data-fr="Contact">Contact</a>
+  </div>
+</nav>
+
+<!-- HOME PAGE -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 data-en="Building Trust.<br>Building Future.<br><span>LEAD COMPANY</span>" data-fr="Bâtir la confiance.<br>Construire l'avenir.<br><span>LEAD COMPANY</span>">Building Trust.<br>Building Future.<br><span>LEAD COMPANY</span></h1>
+        <p data-en="A Canadian-based company specializing in construction services and supermarket retail. Building excellence across industries with a diverse, international team." data-fr="Une entreprise canadienne spécialisée dans les services de construction et la vente au détail.">A Canadian-based company specializing in construction services and supermarket retail. Building excellence across industries with a diverse, international team.</p>
+        <div class="hero-btns">
+          <a class="btn btn-primary" onclick="navigate('contact')">📞 <span data-en="Contact Us" data-fr="Contactez-nous">Contact Us</span></a>
+          <a class="btn btn-outline" onclick="navigate('careers')">💼 <span data-en="Apply for Jobs" data-fr="Postuler">Apply for Jobs</span></a>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-img-wrapper">
+          <img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/12fef5cfc-dce7-4011-a237-ae35d5b0abd4.png" alt="Construction">
+          <div class="hero-badge"><div class="hero-badge-icon">️</div><div class="hero-badge-text"><span data-en="Trusted Since" data-fr="Confiance depuis">Trusted Since</span><strong>2015</strong></div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="section-header fade-in"><div class="section-label" data-en="What We Do" data-fr="Ce que nous faisons">What We Do</div><h2 class="section-title" data-en="Our Core Services" data-fr="Nos services principaux">Our Core Services</h2><p class="section-subtitle" data-en="We operate in two main sectors, delivering quality and reliability." data-fr="Nous opérons dans deux secteurs principaux.">We operate in two main sectors, delivering quality and reliability.</p></div>
+    <div class="card-grid fade-in">
+      <div class="card" style="cursor:pointer" onclick="navigate('construction')"><img class="card-img" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/12fef5cfc-dce7-4011-a237-ae35d5b0abd4.png" alt="Construction"><div class="card-body"><h3 data-en="🏗️ Construction Services" data-fr="🏗️ Services de Construction">️ Construction Services</h3><p data-en="Full-service construction including plumbing, electrical systems, interior finishing, and general construction support across Canada." data-fr="Services de construction complets.">Full-service construction including plumbing, electrical systems, interior finishing, and general construction support across Canada.</p></div></div>
+      <div class="card" style="cursor:pointer" onclick="navigate('supermarket')"><img class="card-img" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17860b2a3-ef3b-47d4-bf95-73ba8c0a4bae.png" alt="Supermarket"><div class="card-body"><h3 data-en=" Supermarket Retail" data-fr="🛒 Supermarché"> Supermarket Retail</h3><p data-en="Large retail supermarket offering fresh produce, groceries, and daily essentials with a focus on affordability and customer satisfaction." data-fr="Grand supermarché offrant des produits frais.">Large retail supermarket offering fresh produce, groceries, and daily essentials with a focus on affordability and customer satisfaction.</p></div></div>
+    </div>
+  </section>
+  <section class="section bg-alt"><div class="stats-row fade-in"><div class="stat-card"><div class="stat-num">20+</div><div class="stat-label" data-en="Team Members" data-fr="Membres">Team Members</div></div><div class="stat-card"><div class="stat-num">15+</div><div class="stat-label" data-en="Countries" data-fr="Pays">Countries</div></div><div class="stat-card"><div class="stat-num">2</div><div class="stat-label" data-en="Business Sectors" data-fr="Secteurs">Business Sectors</div></div><div class="stat-card"><div class="stat-num">∞</div><div class="stat-label" data-en="Commitment" data-fr="Engagement">Commitment</div></div></div></section>
+  <section class="section" style="text-align:center;"><div class="fade-in"><h2 class="section-title" data-en="Ready to Work With Us?" data-fr="Prêt à travailler avec nous ?">Ready to Work With Us?</h2><p class="section-subtitle" style="margin-bottom:32px;" data-en="Whether you need construction services or want to join our team, we'd love to hear from you." data-fr="Nous serions ravis de vous entendre.">Whether you need construction services or want to join our team, we'd love to hear from you.</p><div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap;"><a class="btn btn-blue" onclick="navigate('contact')"> <span data-en="Contact Us" data-fr="Contactez-nous">Contact Us</span></a><a class="btn btn-green" onclick="navigate('careers')">💼 <span data-en="Apply Now" data-fr="Postuler">Apply Now</span></a></div></div></section>
+</div>
+
+<!-- ABOUT PAGE -->
+<div class="page" id="page-about">
+  <div class="about-hero"><h1 data-en="About LEAD COMPANY" data-fr="À propos de LEAD COMPANY">About LEAD COMPANY</h1><p data-en="A Canadian-based company building trust across construction and retail industries." data-fr="Une entreprise canadienne qui bâtit la confiance.">A Canadian-based company building trust across construction and retail industries.</p></div>
+  <div class="about-content"><div class="about-text fade-in"><h2 data-en="Who We Are" data-fr="Qui sommes-nous">Who We Are</h2><p data-en="LEAD COMPANY is a Canadian-based company operating in both the construction and supermarket retail industries. We are committed to delivering quality services and products while maintaining a strong focus on customer satisfaction." data-fr="LEAD COMPANY est une entreprise basée au Canada.">LEAD COMPANY is a Canadian-based company operating in both the construction and supermarket retail industries. We are committed to delivering quality services and products while maintaining a strong focus on customer satisfaction.</p><p data-en="Our strength lies in our diverse, international workforce. With team members from over 15 countries, we bring global perspectives and expertise to every project we undertake." data-fr="Notre force réside dans notre effectif international diversifié.">Our strength lies in our diverse, international workforce. With team members from over 15 countries, we bring global perspectives and expertise to every project we undertake.</p></div><div class="fade-in"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1c77652b6-a512-4fdc-9fd9-cc741fc79808.png" alt="Team"></div></div>
+  <section class="section bg-alt"><div class="section-header fade-in"><div class="section-label" data-en="Our Values" data-fr="Nos valeurs">Our Values</div><h2 class="section-title" data-en="What Drives Us" data-fr="Ce qui nous motive">What Drives Us</h2></div><div class="values-grid fade-in"><div class="value-card"><div class="value-icon">⭐</div><h4 data-en="Quality" data-fr="Qualité">Quality</h4><p data-en="Excellence in every project and product." data-fr="Excellence dans chaque projet.">Excellence in every project and product.</p></div><div class="value-card"><div class="value-icon">🌍</div><h4 data-en="Diversity" data-fr="Diversité">Diversity</h4><p data-en="A global team with rich cultural perspectives." data-fr="Une équipe mondiale diversifiée.">A global team with rich cultural perspectives.</p></div><div class="value-card"><div class="value-icon"></div><h4 data-en="Trust" data-fr="Confiance">Trust</h4><p data-en="Building lasting relationships with integrity." data-fr="Relations durables avec intégrité.">Building lasting relationships with integrity.</p></div><div class="value-card"><div class="value-icon">📈</div><h4 data-en="Growth" data-fr="Croissance">Growth</h4><p data-en="Continuous improvement and expansion." data-fr="Amélioration continue.">Continuous improvement and expansion.</p></div><div class="value-card"><div class="value-icon">🔗</div><h4 data-en="Global Connection" data-fr="Connexion Mondiale">Global Connection</h4><p data-en="Bridging cultures through international work." data-fr="Relier les cultures.">Bridging cultures through international work.</p></div></div></section>
+</div>
+
+<!-- CONSTRUCTION PAGE -->
+<div class="page" id="page-construction">
+  <div class="page-header"><h1 data-en="Construction Services" data-fr="Services de Construction">Construction Services</h1><p data-en="Professional construction solutions delivered with precision and care." data-fr="Solutions de construction professionnelles.">Professional construction solutions delivered with precision and care.</p></div>
+  <section class="section"><div class="fade-in" style="max-width:800px; margin:0 auto 48px; text-align:center;"><p style="font-size:1.1rem; color:var(--text-light); line-height:1.8;" data-en="Our construction division provides comprehensive building services across Canada." data-fr="Notre division construction fournit des services complets.">Our construction division provides comprehensive building services across Canada.</p></div><div class="service-grid fade-in"><div class="service-card"><div class="service-icon">🔧</div><h3 data-en="Plumbing Installation" data-fr="Installation de Plomberie">Plumbing Installation</h3><p data-en="Complete plumbing systems for residential and commercial buildings." data-fr="Systèmes de plomberie complets.">Complete plumbing systems for residential and commercial buildings.</p></div><div class="service-card"><div class="service-icon">⚡</div><h3 data-en="Electrical Systems" data-fr="Systèmes Électriques">Electrical Systems</h3><p data-en="Full electrical installation and wiring for buildings." data-fr="Installation électrique complète.">Full electrical installation and wiring for buildings.</p></div><div class="service-card"><div class="service-icon">🎨</div><h3 data-en="Interior Finishing" data-fr="Finition Intérieure">Interior Finishing</h3><p data-en="High-quality interior finishing including painting and flooring." data-fr="Finition intérieure de haute qualité.">High-quality interior finishing including painting and flooring.</p></div><div class="service-card"><div class="service-icon">🏗️</div><h3 data-en="General Construction Support" data-fr="Soutien Général">General Construction Support</h3><p data-en="Comprehensive construction support services including project management." data-fr="Services de soutien complets.">Comprehensive construction support services including project management.</p></div></div><div style="text-align:center; margin-top:48px;" class="fade-in"><a class="btn btn-blue" onclick="navigate('contact')">📞 <span data-en="Request a Quote" data-fr="Demander un Devis">Request a Quote</span></a></div></section>
+</div>
+
+<!-- SUPERMARKET PAGE -->
+<div class="page" id="page-supermarket">
+  <div class="page-header"><h1 data-en="Supermarket" data-fr="Supermarché">Supermarket</h1><p data-en="Your one-stop shop for all daily essentials in Canada." data-fr="Votre magasin unique pour tous les essentiels.">Your one-stop shop for all daily essentials in Canada.</p></div>
+  <section class="section"><div class="about-content"><div class="fade-in"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17860b2a3-ef3b-47d4-bf95-73ba8c0a4bae.png" alt="Supermarket"></div><div class="about-text fade-in"><h2 data-en="Fresh. Affordable. Reliable." data-fr="Frais. Abordable. Fiable.">Fresh. Affordable. Reliable.</h2><p data-en="Our large retail supermarket in Canada offers a wide selection of daily goods including fresh produce, groceries, household items, and essentials." data-fr="Notre grand supermarché au Canada offre une large sélection.">Our large retail supermarket in Canada offers a wide selection of daily goods including fresh produce, groceries, household items, and essentials.</p><p data-en="Customer satisfaction is at the heart of everything we do." data-fr="La satisfaction client est au cœur de tout.">Customer satisfaction is at the heart of everything we do.</p><div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:24px;"><div style="padding:16px; background:var(--primary-light); border-radius:10px; text-align:center;"><div style="font-size:1.8rem;">🥬</div><strong style="font-size:0.9rem;" data-en="Fresh Produce" data-fr="Produits Frais">Fresh Produce</strong></div><div style="padding:16px; background:var(--primary-light); border-radius:10px; text-align:center;"><div style="font-size:1.8rem;"></div><strong style="font-size:0.9rem;" data-en="Household Items" data-fr="Articles Ménagers">Household Items</strong></div><div style="padding:16px; background:var(--primary-light); border-radius:10px; text-align:center;"><div style="font-size:1.8rem;">🧴</div><strong style="font-size:0.9rem;" data-en="Daily Essentials" data-fr="Essentiels">Daily Essentials</strong></div><div style="padding:16px; background:var(--primary-light); border-radius:10px; text-align:center;"><div style="font-size:1.8rem;">💰</div><strong style="font-size:0.9rem;" data-en="Best Prices" data-fr="Meilleurs Prix">Best Prices</strong></div></div></div></div></section>
+</div>
+
+<!-- CAREERS PAGE -->
+<div class="page" id="page-careers">
+  <div class="page-header"><h1 data-en="Careers" data-fr="Carrières">Careers</h1><p data-en="Join our international team and grow with LEAD COMPANY." data-fr="Rejoignez notre équipe internationale.">Join our international team and grow with LEAD COMPANY.</p></div>
+  <section class="section"><div class="fade-in" style="max-width:700px; margin:0 auto;"><div style="text-align:center; margin-bottom:40px;"><h2 class="section-title" data-en="Apply for a Job" data-fr="Postuler à un emploi">Apply for a Job</h2><p style="color:var(--text-light);" data-en="Fill out the form below or contact us directly via email or WhatsApp." data-fr="Remplissez le formulaire ci-dessous.">Fill out the form below or contact us directly via email or WhatsApp.</p></div><form onsubmit="handleApply(event)" style="margin-bottom:32px;"><div class="form-grid"><div class="form-group"><label data-en="Full Name *" data-fr="Nom complet *">Full Name *</label><input type="text" required></div><div class="form-group"><label data-en="Email *" data-fr="Email *">Email *</label><input type="email" required></div><div class="form-group"><label data-en="Phone *" data-fr="Téléphone *">Phone *</label><input type="tel" required></div><div class="form-group"><label data-en="Position Applying For *" data-fr="Poste visé *">Position Applying For *</label><select required><option value="" data-en="Select a position" data-fr="Sélectionner">Select a position</option><option data-en="Construction Worker" data-fr="Ouvrier">Construction Worker</option><option data-en="Plumber" data-fr="Plombier">Plumber</option><option data-en="Electrician" data-fr="Électricien">Electrician</option><option data-en="Interior Finisher" data-fr="Finisseur">Interior Finisher</option><option data-en="Supermarket Staff" data-fr="Personnel">Supermarket Staff</option><option data-en="Cashier" data-fr="Caissier">Cashier</option><option data-en="Stock Manager" data-fr="Gestionnaire">Stock Manager</option><option data-en="Customer Service" data-fr="Service Client">Customer Service</option><option data-en="Security" data-fr="Sécurité">Security</option><option data-en="Cleaner" data-fr="Entretien">Cleaner</option><option data-en="Other" data-fr="Autre">Other</option></select></div><div class="form-group full"><label data-en="Upload CV (PDF)" data-fr="Télécharger CV (PDF)">Upload CV (PDF)</label><input type="file" accept=".pdf,.doc,.docx" style="padding:10px;"></div><div class="form-group full"><label data-en="Additional Message" data-fr="Message">Additional Message</label><textarea placeholder="Tell us about your experience..." data-en-placeholder="Tell us about your experience..." data-fr-placeholder="Parlez-nous de votre expérience..."></textarea></div><div class="form-group full"><button type="submit" class="btn btn-blue" style="width:100%; justify-content:center;" data-en="📄 Submit Application" data-fr=" Soumettre">📄 Submit Application</button></div></div></form><div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;"><a href="mailto:000@gmail.com?subject=Job Application" class="btn btn-blue" style="justify-content:center;">📧 <span data-en="Apply via Email" data-fr="Email">Apply via Email</span></a><a href="https://wa.me/251966465061?text=Hello%20LEAD%20COMPANY" target="_blank" class="btn btn-green" style="justify-content:center;">💬 <span data-en="Apply via WhatsApp" data-fr="WhatsApp">Apply via WhatsApp</span></a></div></div></section>
+</div>
+
+<!-- EMPLOYEES PAGE -->
+<div class="page" id="page-employees">
+  <div class="page-header"><h1 data-en="Our Team" data-fr="Notre Équipe">Our Team</h1><p data-en="Meet the diverse, international team behind LEAD COMPANY's success." data-fr="Découvrez notre équipe internationale.">Meet the diverse, international team behind LEAD COMPANY's success.</p></div>
+  <section class="section"><div class="fade-in">
+    <div class="emp-category"><h3>👔 <span data-en="Management" data-fr="Direction">Management</span></h3><div class="emp-grid">
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1e9c02a20-b97e-479a-83cf-67a58f02363c.png" alt="Michael Johnson"><div class="emp-body"><div class="emp-flag">🇨🇦</div><div class="emp-name">Michael Johnson</div><div class="emp-role" data-en="General Manager" data-fr="Directeur Général">General Manager</div><span class="emp-country">Canada 🇨</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1c0c70f1e-5ed3-4d96-ad93-dda605b505f0.png" alt="Amina Hassan"><div class="emp-body"><div class="emp-flag">🇪</div><div class="emp-name">Amina Hassan</div><div class="emp-role" data-en="Deputy Manager" data-fr="Directrice Adjointe">Deputy Manager</div><span class="emp-country">Ethiopia 🇪🇹</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1d9281110-889a-4abe-9f95-038f37ee4319.png" alt="David Brown"><div class="emp-body"><div class="emp-flag">🇬🇧</div><div class="emp-name">David Brown</div><div class="emp-role" data-en="HR Manager" data-fr="Directeur RH">HR Manager</div><span class="emp-country">UK 🇬🇧</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1de3da808-510d-41de-bd3a-63dbeb47c353.png" alt="Raj Patel"><div class="emp-body"><div class="emp-flag">🇮🇳</div><div class="emp-name">Raj Patel</div><div class="emp-role" data-en="Finance Manager" data-fr="Directeur Financier">Finance Manager</div><span class="emp-country">India 🇮🇳</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1d383e08a-10e7-4ed4-8988-6b4230cdfdb3.png" alt="John Smith"><div class="emp-body"><div class="emp-flag">🇺🇸</div><div class="emp-name">John Smith</div><div class="emp-role" data-en="Construction Director" data-fr="Directeur Construction">Construction Director</div><span class="emp-country">USA 🇺🇸</span></div></div>
+    </div></div>
+    <div class="emp-category"><h3>🏗️ <span data-en="Construction Team" data-fr="Équipe Construction">Construction Team</span></h3><div class="emp-grid">
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1eb1d1ae2-4d62-41f0-bc52-9d45f5bbfca6.png" alt="Ahmed Ali"><div class="emp-body"><div class="emp-flag">🇪🇬</div><div class="emp-name">Ahmed Ali</div><div class="emp-role" data-en="Site Supervisor" data-fr="Superviseur de Site">Site Supervisor</div><span class="emp-country">Egypt 🇪</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1b97c9f0d-ff53-43cd-9fb6-9630c82840f3.png" alt="Carlos Mendes"><div class="emp-body"><div class="emp-flag">🇧🇷</div><div class="emp-name">Carlos Mendes</div><div class="emp-role" data-en="Electrician Lead" data-fr="Chef Électricien">Electrician Lead</div><span class="emp-country">Brazil 🇧🇷</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/182c3f9fd-76db-4f01-b8f4-8dcb063a9195.png" alt="Daniel Kim"><div class="emp-body"><div class="emp-flag">🇰🇷</div><div class="emp-name">Daniel Kim</div><div class="emp-role" data-en="Plumbing Specialist" data-fr="Spécialiste Plomberie">Plumbing Specialist</div><span class="emp-country">South Korea 🇰</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1b1cec154-3f23-4099-90c3-9b7c37164628.png" alt="James Wilson"><div class="emp-body"><div class="emp-flag">🇬🇧</div><div class="emp-name">James Wilson</div><div class="emp-role" data-en="Finishing Supervisor" data-fr="Superviseur Finition">Finishing Supervisor</div><span class="emp-country">UK 🇬🇧</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1e719fae0-ff4f-46d6-a8ac-be512359ca08.png" alt="Samuel Tadesse"><div class="emp-body"><div class="emp-flag">🇪🇹</div><div class="emp-name">Samuel Tadesse</div><div class="emp-role" data-en="Safety Officer" data-fr="Officier Sécurité">Safety Officer</div><span class="emp-country">Ethiopia 🇪</span></div></div>
+    </div></div>
+    <div class="emp-category"><h3> <span data-en="Supermarket Team" data-fr="Équipe Supermarché">Supermarket Team</span></h3><div class="emp-grid">
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1869ad7cf-ea19-4769-bc2f-5511bc29060f.png" alt="Maria Gonzalez"><div class="emp-body"><div class="emp-flag">🇪</div><div class="emp-name">Maria Gonzalez</div><div class="emp-role" data-en="Store Manager" data-fr="Gestionnaire">Store Manager</div><span class="emp-country">Spain 🇪🇸</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/12aa3030d-06e6-42e8-b2a1-c5ab2bde1332.png" alt="Lucas Martin"><div class="emp-body"><div class="emp-flag">🇫🇷</div><div class="emp-name">Lucas Martin</div><div class="emp-role" data-en="Assistant Manager" data-fr="Adjoint">Assistant Manager</div><span class="emp-country">France 🇫🇷</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1bd0dfe45-ef3a-4445-a169-6e4c91803786.png" alt="Fatima Noor"><div class="emp-body"><div class="emp-flag">🇵</div><div class="emp-name">Fatima Noor</div><div class="emp-role" data-en="Cashier Lead" data-fr="Chef Caissière">Cashier Lead</div><span class="emp-country">Pakistan 🇵🇰</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17628d5f4-6cea-4d1f-927b-100b795db624.png" alt="Ethan Clark"><div class="emp-body"><div class="emp-flag">🇺</div><div class="emp-name">Ethan Clark</div><div class="emp-role" data-en="Stock Manager" data-fr="Gestionnaire Stock">Stock Manager</div><span class="emp-country">USA 🇺🇸</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/10828a873-8bee-467f-86f4-66de088cadef.png" alt="Sophie Laurent"><div class="emp-body"><div class="emp-flag">🇨🇦</div><div class="emp-name">Sophie Laurent</div><div class="emp-role" data-en="Customer Service Lead" data-fr="Chef Service Client">Customer Service Lead</div><span class="emp-country">Canada 🇨</span></div></div>
+    </div></div>
+    <div class="emp-category"><h3>🔧 <span data-en="Support Staff" data-fr="Personnel de Soutien">Support Staff</span></h3><div class="emp-grid">
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/179b04d7e-cf21-4da1-bc7c-bbd8539a3d94.png" alt="Michael Chen"><div class="emp-body"><div class="emp-flag">🇨🇳</div><div class="emp-name">Michael Chen</div><div class="emp-role" data-en="Logistics Coordinator" data-fr="Coordinateur">Logistics Coordinator</div><span class="emp-country">China 🇨🇳</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/172ce5ddd-99df-4da7-8627-f38143fe5d7b.png" alt="Peter Okoye"><div class="emp-body"><div class="emp-flag">🇳🇬</div><div class="emp-name">Peter Okoye</div><div class="emp-role" data-en="Security Head" data-fr="Chef Sécurité">Security Head</div><span class="emp-country">Nigeria 🇳🇬</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1a022a6ed-ce9f-4f3c-9093-851d95fa46cd.png" alt="Alex Ivanov"><div class="emp-body"><div class="emp-flag">🇷🇺</div><div class="emp-name">Alex Ivanov</div><div class="emp-role" data-en="IT Support" data-fr="Support IT">IT Support</div><span class="emp-country">Russia 🇷🇺</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/106b70e48-a553-4865-aeee-af7329b77dab.png" alt="Olivia Brown"><div class="emp-body"><div class="emp-flag">🇺🇸</div><div class="emp-name">Olivia Brown</div><div class="emp-role" data-en="Marketing Officer" data-fr="Marketing">Marketing Officer</div><span class="emp-country">USA 🇺🇸</span></div></div>
+      <div class="emp-card"><img class="emp-photo" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1c31a208e-48ec-4535-add8-f7dbd4ed1310.png" alt="Hassan Ibrahim"><div class="emp-body"><div class="emp-flag">🇸🇩</div><div class="emp-name">Hassan Ibrahim</div><div class="emp-role" data-en="Cleaner Supervisor" data-fr="Superviseur Nettoyage">Cleaner Supervisor</div><span class="emp-country">Sudan 🇸🇩</span></div></div>
+    </div></div>
+    <div style="text-align:center; margin-top:40px; padding:24px; background:var(--primary-light); border-radius:12px;"><p style="font-weight:700; color:var(--primary); font-size:1.1rem;">🌍 <span data-en="20 Team Members from 15+ Countries" data-fr="20 Membres de 15+ Pays">20 Team Members from 15+ Countries</span></p><p style="color:var(--text-light); font-size:0.9rem; margin-top:8px;" data-en="Diversity is our strength. Global connection is our advantage." data-fr="La diversité est notre force.">Diversity is our strength. Global connection is our advantage.</p></div>
+  </div></section>
+</div>
+
+<!-- COMING SOON EMPLOYEES PAGE -->
+<div class="page" id="page-coming-soon">
+  <div class="page-header">
+    <h1 data-en="🚀 Coming Soon Employees" data-fr="🚀 Prochains Employés">🚀 Coming Soon Employees</h1>
+    <p data-en="Meet the talented professionals who will be joining our international team in the coming months." data-fr="Découvrez les professionnels talentueux qui rejoindront notre équipe internationale dans les prochains mois.">Meet the talented professionals who will be joining our international team in the coming months.</p>
+  </div>
+  <section class="section">
+    <div class="section-header fade-in">
+      <div class="section-label" data-en="Growing Together" data-fr="Grandir Ensemble">Growing Together</div>
+      <h2 class="section-title" data-en="Future Team Members" data-fr="Futurs Membres de l'Équipe">Future Team Members</h2>
+      <p class="section-subtitle" data-en="We are continuously expanding our global team. These talented individuals will join LEAD COMPANY soon, bringing their unique skills and cultural perspectives to our workforce." data-fr="Nous expandons continuellement notre équipe mondiale. Ces individus talentueux rejoindront LEAD COMPANY bientôt.">We are continuously expanding our global team. These talented individuals will join LEAD COMPANY soon, bringing their unique skills and cultural perspectives to our workforce.</p>
+    </div>
+
+    <div class="coming-soon-grid fade-in">
+      <!-- MEKURIA SETEGN - COMING SOON -->
+      <div class="coming-soon-card" onclick="openPassportModal('photo_2026-05-02_10-31-28.jpg', 'Mekuria Setegn - Passport')">
+        <div class="coming-soon-badge pulse">COMING SOON</div>
+        <div class="coming-soon-photo-wrapper">
+          <img src="photo_2026-05-02_16-24-27.jpg" alt="Mekuria Setegn">
+        </div>
+        <div class="coming-soon-name">Mekuria Setegn</div>
+        <div class="coming-soon-role" data-en="Team Member" data-fr="Membre de l'Équipe">Team Member</div>
+        <div class="coming-soon-country">🇪 Ethiopia</div>
+        <div class="coming-soon-hint" data-en="Click to view passport" data-fr="Cliquez pour voir le passeport">Click to view passport</div>
+      </div>
+
+      <!-- ADDITIONAL COMING SOON EMPLOYEES CAN BE ADDED HERE -->
+      <!-- <div class="coming-soon-card">...</div> -->
+
+    </div>
+
+    <div style="text-align:center; margin-top:48px;" class="fade-in">
+      <div style="max-width:600px; margin:0 auto; padding:32px; background:var(--primary-light); border-radius:16px;">
+        <p style="font-weight:700; color:var(--primary); font-size:1.2rem; margin-bottom:12px;" data-en="🌟 We're Growing!" data-fr="🌟 Nous Grandissons!">🌟 We're Growing!</p>
+        <p style="color:var(--text-light); line-height:1.7;" data-en="We are actively recruiting talented professionals from around the world. Want to join our team? Apply now and be part of our international family." data-fr="Nous recrutons activement des professionnels talentueux du monde entier.">We are actively recruiting talented professionals from around the world. Want to join our team? Apply now and be part of our international family.</p>
+        <a class="btn btn-blue" onclick="navigate('careers')" style="margin-top:20px;">💼 <span data-en="Apply Now" data-fr="Postuler">Apply Now</span></a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- GALLERY PAGE -->
+<div class="page" id="page-gallery">
+  <div class="page-header"><h1 data-en="Gallery" data-fr="Galerie">Gallery</h1><p data-en="A look into our work, our stores, and our team." data-fr="Notre travail, nos magasins et notre équipe.">A look into our work, our stores, and our team.</p></div>
+  <section class="section">
+    <div class="section-header fade-in"><div class="section-label" data-en="Construction" data-fr="Construction">Construction</div><h2 class="section-title" data-en="Construction Projects" data-fr="Projets">Construction Projects</h2></div>
+    <div class="gallery-grid fade-in">
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/12fef5cfc-dce7-4011-a237-ae35d5b0abd4.png" alt="Construction"><div class="gallery-overlay"><span data-en="Active Construction Site" data-fr="Site Actif">Active Construction Site</span></div></div>
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/159209775-5882-4f30-8ec1-e5645597505f.png" alt="Team"><div class="gallery-overlay"><span data-en="Team Collaboration" data-fr="Collaboration">Team Collaboration</span></div></div>
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1217e74f7-283a-4f34-8734-1c0336c1e13a.png" alt="Building"><div class="gallery-overlay"><span data-en="LEAD COMPANY Building" data-fr="Bâtiment">LEAD COMPANY Building</span></div></div>
+    </div>
+    <div class="section-header fade-in" style="margin-top:80px;"><div class="section-label" data-en="Supermarket" data-fr="Supermarché">Supermarket</div><h2 class="section-title" data-en="Our Supermarket" data-fr="Notre Supermarché">Our Supermarket</h2></div>
+    <div class="gallery-grid fade-in">
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17860b2a3-ef3b-47d4-bf95-73ba8c0a4bae.png" alt="Produce"><div class="gallery-overlay"><span data-en="Fresh Produce" data-fr="Produits Frais">Fresh Produce</span></div></div>
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17e3f6ce3-bba4-40ab-9473-d4e29a2267ab.png" alt="Aisles"><div class="gallery-overlay"><span data-en="Store Aisles" data-fr="Allées">Store Aisles</span></div></div>
+    </div>
+    <div class="section-header fade-in" style="margin-top:80px;"><div class="section-label" data-en="Team" data-fr="Équipe">Team</div><h2 class="section-title" data-en="Our People" data-fr="Notre Personnel">Our People</h2></div>
+    <div class="gallery-grid fade-in">
+      <div class="gallery-item" onclick="openLightbox(this)"><img src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1c77652b6-a512-4fdc-9fd9-cc741fc79808.png" alt="Meeting"><div class="gallery-overlay"><span data-en="Team Meeting" data-fr="Réunion">Team Meeting</span></div></div>
+    </div>
+  </section>
+</div>
+
+<!-- LIGHTBOX (Gallery & Passport) -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lightbox-close">&times;</button>
+  <img id="lightboxImg" src="" alt="">
+  <div class="lightbox-label" id="lightboxLabel"></div>
+</div>
+
+<!-- NEWS PAGE -->
+<div class="page" id="page-news">
+  <div class="page-header"><h1 data-en="News & Updates" data-fr="Nouvelles">News & Updates</h1><p data-en="Stay informed about LEAD COMPANY's latest developments." data-fr="Restez informé.">Stay informed about LEAD COMPANY's latest developments.</p></div>
+  <section class="section"><div class="news-grid fade-in">
+    <div class="news-card"><img class="news-img" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/17860b2a3-ef3b-47d4-bf95-73ba8c0a4bae.png" alt="Expansion"><div class="news-body"><span class="news-date" data-en="January 2025" data-fr="Janvier 2025">January 2025</span><h3 data-en="LEAD COMPANY Expands Supermarket Operations in Canada" data-fr="LEAD COMPANY Étend les Opérations">LEAD COMPANY Expands Supermarket Operations in Canada</h3><p data-en="We are excited to announce the expansion of our supermarket operations across Canada." data-fr="Nous annonçons l'expansion de nos opérations.">We are excited to announce the expansion of our supermarket operations across Canada.</p></div></div>
+    <div class="news-card"><img class="news-img" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/12fef5cfc-dce7-4011-a237-ae35d5b0abd4.png" alt="Construction"><div class="news-body"><span class="news-date" data-en="December 2024" data-fr="Décembre 2024">December 2024</span><h3 data-en="New Construction Projects Started in Toronto" data-fr="Nouveaux Projets à Toronto">New Construction Projects Started in Toronto</h3><p data-en="LEAD COMPANY has kicked off several new construction projects in the Greater Toronto Area." data-fr="LEAD COMPANY a lancé de nouveaux projets.">LEAD COMPANY has kicked off several new construction projects in the Greater Toronto Area.</p></div></div>
+    <div class="news-card"><img class="news-img" src="https://image.qwenlm.ai/public_source/2597eeb0-a8f3-4e6e-a138-8dae3c248148/1c77652b6-a512-4fdc-9fd9-cc741fc79808.png" alt="Hiring"><div class="news-body"><span class="news-date" data-en="November 2024" data-fr="Novembre 2024">November 2024</span><h3 data-en="Hiring International Skilled Workers Continues" data-fr="Recrutement International Continue">Hiring International Skilled Workers Continues</h3><p data-en="LEAD COMPANY continues to welcome skilled workers from around the world." data-fr="LEAD COMPANY continue d'accueillir des travailleurs qualifiés.">LEAD COMPANY continues to welcome skilled workers from around the world.</p></div></div>
+  </div></section>
+</div>
+
+<!-- CONTACT PAGE -->
+<div class="page" id="page-contact">
+  <div class="page-header"><h1 data-en="Contact Us" data-fr="Contactez-nous">Contact Us</h1><p data-en="We'd love to hear from you. Reach out anytime." data-fr="Nous serions ravis de vous entendre.">We'd love to hear from you. Reach out anytime.</p></div>
+  <section class="section"><div class="contact-grid fade-in">
+    <div><h2 style="font-size:1.5rem; font-weight:800; margin-bottom:24px;" data-en="Get in Touch" data-fr="Entrer en Contact">Get in Touch</h2>
+      <div class="contact-info-card"><div class="contact-icon">📧</div><div><h4 data-en="Email" data-fr="Email">Email</h4><p><a href="leadconstructioncanada@gmail.com">info@leadcompany.ca</a></p></div></div>
+      <div class="contact-info-card"><div class="contact-icon"></div><div><h4 data-en="WhatsApp" data-fr="WhatsApp">WhatsApp</h4><p><a href="https://wa.me/+14027710403" target="_blank">+14027710403</a></p></div></div>
+      <div class="contact-info-card"><div class="contact-icon">📍</div><div><h4 data-en="Location" data-fr="Emplacement">Location</h4><p data-en="Canada" data-fr="Canada">Canada</p></div></div>
+      <div style="display:flex; gap:12px; margin-top:20px; flex-wrap:wrap;"><a href="mailto:000@gmail.com" class="btn btn-blue">📧 <span data-en="Send Email" data-fr="Email">Send Email</span></a><a href="https://wa.me/251966465061" target="_blank" class="btn btn-green">💬 <span data-en="WhatsApp" data-fr="WhatsApp">WhatsApp</span></a></div>
+    </div>
+    <div><h2 style="font-size:1.5rem; font-weight:800; margin-bottom:24px;" data-en="Send a Message" data-fr="Envoyer un Message">Send a Message</h2><form onsubmit="handleContact(event)"><div class="form-grid"><div class="form-group"><label data-en="Full Name *" data-fr="Nom *">Full Name *</label><input type="text" required></div><div class="form-group"><label data-en="Email *" data-fr="Email *">Email *</label><input type="email" required></div><div class="form-group full"><label data-en="Subject *" data-fr="Sujet *">Subject *</label><input type="text" required></div><div class="form-group full"><label data-en="Message *" data-fr="Message *">Message *</label><textarea required rows="5"></textarea></div><div class="form-group full"><button type="submit" class="btn btn-blue" style="width:100%; justify-content:center;" data-en="📨 Send Message" data-fr="📨 Envoyer">📨 Send Message</button></div></div></form></div>
+  </div></section>
+</div>
+
+<footer><div class="footer-inner"><div class="footer-brand"><h3>LEAD COMPANY</h3><p data-en="A Canadian-based company specializing in construction services and supermarket retail." data-fr="Entreprise canadienne spécialisée.">A Canadian-based company specializing in construction services and supermarket retail.</p></div><div class="footer-col"><h4 data-en="Services" data-fr="Services">Services</h4><a onclick="navigate('construction')" data-en="Construction" data-fr="Construction">Construction</a><a onclick="navigate('supermarket')" data-en="Supermarket" data-fr="Supermarché">Supermarket</a><a onclick="navigate('careers')" data-en="Careers" data-fr="Carrières">Careers</a></div><div class="footer-col"><h4 data-en="Company" data-fr="Entreprise">Company</h4><a onclick="navigate('about')" data-en="About Us" data-fr="À propos">About Us</a><a onclick="navigate('employees')" data-en="Our Team" data-fr="Équipe">Our Team</a><a onclick="navigate('coming-soon')" data-en="Coming Soon" data-fr="Prochainement">Coming Soon</a><a onclick="navigate('gallery')" data-en="Gallery" data-fr="Galerie">Gallery</a><a onclick="navigate('news')" data-en="News" data-fr="Nouvelles">News</a></div><div class="footer-col"><h4 data-en="Contact" data-fr="Contact">Contact</h4><a href="mailto:000@gmail.com">📧 000@gmail.com</a><a href="https://wa.me/251966465061" target="_blank">💬 +251 966 465 061</a><a>📍 Canada</a></div></div><div class="footer-bottom"><p>© 2025 LEAD COMPANY. All rights reserved.</p></div></footer>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+let currentLang = 'en';
+function setLang(lang) {
+  currentLang = lang;
+  document.getElementById('langEn').classList.toggle('active', lang === 'en');
+  document.getElementById('langFr').classList.toggle('active', lang === 'fr');
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-' + lang + ']').forEach(el => {
+    const text = el.getAttribute('data-' + lang);
+    if (text && el.tagName !== 'INPUT' && el.tagName !== 'TEXTAREA') el.innerHTML = text;
+  });
+  document.querySelectorAll('[data-' + lang + '-placeholder]').forEach(el => { el.placeholder = el.getAttribute('data-' + lang + '-placeholder'); });
+}
+let currentPage = 'home';
+function navigate(page) {
+  currentPage = page;
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  const target = document.getElementById('page-' + page);
+  if (target) { target.classList.add('active'); setTimeout(() => { target.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible')); }, 100); }
+  document.querySelectorAll('.nav-links a').forEach(a => { a.classList.toggle('active', a.getAttribute('data-page') === page); });
+  document.getElementById('mobileMenu').classList.remove('open');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function toggleMobile() { document.getElementById('mobileMenu').classList.toggle('open'); }
+window.addEventListener('scroll', () => {
+  document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 20);
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+  document.querySelectorAll('.page.active .fade-in').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight - 60) el.classList.add('visible'); });
+});
+function openLightbox(el) {
+  document.getElementById('lightboxImg').src = el.querySelector('img').src;
+  document.getElementById('lightboxLabel').textContent = el.querySelector('.gallery-overlay span')?.textContent || '';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function openPassportModal(passportUrl, label) {
+  document.getElementById('lightboxImg').src = passportUrl;
+  document.getElementById('lightboxLabel').textContent = label || '';
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeLightbox() { document.getElementById('lightbox').classList.remove('open'); document.body.style.overflow = ''; }
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+function handleApply(e) { e.preventDefault(); alert(currentLang === 'fr' ? 'Merci! Votre candidature a été soumise.' : 'Thank you! Your application has been submitted.'); e.target.reset(); }
+function handleContact(e) { e.preventDefault(); alert(currentLang === 'fr' ? 'Merci! Votre message a été envoyé.' : 'Thank you! Your message has been sent.'); e.target.reset(); }
+document.addEventListener('DOMContentLoaded', () => { setTimeout(() => { document.querySelectorAll('.page.active .fade-in').forEach(el => { if (el.getBoundingClientRect().top < window.innerHeight) el.classList.add('visible'); }); }, 200); });
+</script>
+</body>
+</html>
+
